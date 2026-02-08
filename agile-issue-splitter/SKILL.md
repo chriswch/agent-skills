@@ -9,13 +9,24 @@ description: Decompose product features/behaviors into an execution-ready Agile/
 
 Turn a raw list of features and behaviors into a self-contained, execution-ready issue backlog (User Story / Task / Bug) that supports parallel work and deterministic planning.
 
-## Default Output (Issue Bundle)
+## Default Output (Markdown + JSON)
 
-Produce a single JSON object called an "Issue Bundle" that conforms to `references/issue-bundle.spec.md`.
+Produce two artifacts:
 
-- Prefer emitting JSON in a fenced `json` block.
-- If writing to disk, name it `issue-bundle.json`.
+1) A human-readable **Issue Bundle (Markdown)** for reading/copy-paste.
+2) A canonical **Issue Bundle (JSON)** that conforms to `references/issue-bundle.spec.md`.
+
+- Put the Markdown first, and the JSON last (in a fenced `json` block).
+- Treat the JSON as the source of truth; ensure the Markdown content is derivable from the JSON (no extra issues/fields that aren't in JSON).
+- If writing to disk, name the JSON file `issue-bundle.json` and optionally render Markdown with:
+  - `python3 scripts/render_issue_bundle_markdown.py issue-bundle.json > issue-bundle.md`
 - Keep every issue self-contained: a new team member should be able to implement it without the original feature list.
+
+Markdown should be scannable and tracker-friendly:
+
+- Use headings that mirror the bundle shape: `Meta`, `Assumptions`, `Open Questions`, `Epics`, `Backlog Summary`, `Issue Details`.
+- Include a compact summary table with: `id`, `type`, `priority`, `status`, `epic_id`, `parent_id`, `workstream`, `title`, `blocked_by`.
+- In `Issue Details`, include every field needed to create the issue in Jira/Linear (title + body/description + labels + priority + dependencies), plus acceptance criteria/verification.
 
 ## Workflow
 
@@ -68,3 +79,4 @@ Produce a single JSON object called an "Issue Bundle" that conforms to `referenc
 - Templates and checklists: `references/templates.md`
 - Output schema: `references/issue-bundle.spec.md`
 - Validator: `scripts/validate_issue_bundle.py` (`python3 scripts/validate_issue_bundle.py issue-bundle.json`)
+- Markdown renderer: `scripts/render_issue_bundle_markdown.py` (`python3 scripts/render_issue_bundle_markdown.py issue-bundle.json`)

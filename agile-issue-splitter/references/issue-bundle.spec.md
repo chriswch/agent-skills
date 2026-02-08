@@ -4,7 +4,7 @@ Use this spec for the default output of the `agile-issue-splitter` skill. The go
 
 ## Conventions
 
-- **JSON only**: Output must be valid JSON (no comments, trailing commas).
+- **Canonical JSON**: The Issue Bundle is a JSON object and must be valid JSON (no comments, trailing commas). When presenting results in chat, you may also include a human-readable Markdown rendering, but the JSON must still conform to this spec.
 - **IDs**:
   - Epics: `E-001`, `E-002`, …
   - User Stories: `US-001`, `US-002`, …
@@ -131,4 +131,3 @@ Additional required fields:
 
 Notes:
 - Bugs must include a clear verification approach in acceptance criteria (e.g., regression test added, repro no longer possible).
-
