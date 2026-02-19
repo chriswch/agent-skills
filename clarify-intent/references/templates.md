@@ -4,7 +4,7 @@ Use these templates when you want a consistent artifact to confirm shared unders
 
 ## When To Use Which
 
-- **Feature Brief**: Use for large / epic-sized inputs that will be split into multiple stories. Captures goals, boundaries, and slicing strategy. Hand off to `agile-issue-splitter` afterward.
+- **Feature Brief**: Use for large / epic-sized inputs that will be split into multiple stories. Captures goals, boundaries, and slicing strategy. Hand off to `agile-story-slicer` afterward.
 - **Story-Level Behavioral Spec**: Use for small/medium inputs (single story or task). Acceptance criteria are the primary artifact — they become test cases in the downstream TDD step.
 
 ---
@@ -32,7 +32,7 @@ Use for feature-level clarification. Captures "what and why" — just enough to 
 - (Deferrable — will resolve at story level) ...
 
 **Downstream Handoff**
-- Split into vertical slices via `agile-issue-splitter`.
+- Split into vertical slices via `agile-story-slicer`.
 - Pick the highest-value or highest-risk slice first.
 - Produce a Story-Level Behavioral Spec for that slice before implementing.
 
