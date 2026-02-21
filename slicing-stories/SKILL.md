@@ -31,8 +31,8 @@ Produce two artifacts:
 
 - Put the Markdown first, and the JSON last (in a fenced `json` block).
 - Treat the JSON as the source of truth; ensure the Markdown is derivable from the JSON.
-- If writing to disk, name the JSON file `slice-map.json` and optionally render Markdown with:
-  - `python3 scripts/render_slice_map_markdown.py slice-map.json > slice-map.md`
+- Write the JSON to `.praxis/slice-map.json` and optionally render Markdown with:
+  - `python3 scripts/render_slice_map_markdown.py .praxis/slice-map.json > .praxis/slice-map.md`
 - If producing JSON, validate with `scripts/validate_slice_map.py`.
 
 ## Workflow
@@ -71,7 +71,7 @@ Produce two artifacts:
      - Does the first slice prove the core integration / highest-risk assumption?
      - Are `scope_in` boundaries clear enough that `clarifying-intent` can spec the slice without asking "what are we building?"
      - Do `scope_out` boundaries prevent overlap between slices?
-   - If producing JSON, run `python3 scripts/validate_slice_map.py slice-map.json`.
+   - If producing JSON, run `python3 scripts/validate_slice_map.py .praxis/slice-map.json`.
 
 ## Downstream Handoff
 
@@ -89,5 +89,5 @@ When updating, re-validate (step 5) and re-confirm with the requester. Don't tre
 
 - Templates and slicing heuristics: `references/templates.md`
 - Output schema: `references/slice-map.spec.md`
-- Validator: `scripts/validate_slice_map.py` (`python3 scripts/validate_slice_map.py slice-map.json`)
-- Markdown renderer: `scripts/render_slice_map_markdown.py` (`python3 scripts/render_slice_map_markdown.py slice-map.json`)
+- Validator: `scripts/validate_slice_map.py` (`python3 scripts/validate_slice_map.py .praxis/slice-map.json`)
+- Markdown renderer: `scripts/render_slice_map_markdown.py` (`python3 scripts/render_slice_map_markdown.py .praxis/slice-map.json`)

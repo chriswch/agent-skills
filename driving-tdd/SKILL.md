@@ -87,6 +87,7 @@ This is where the real design happens. The design sketch gave a direction; TDD's
 - AC checklist showing completion status.
 - Feedback log (if any discoveries).
 - Session summary (for medium+ tasks). See `references/templates.md`.
+- Write AC checklist, feedback log, and session summary to `.praxis/tdd.md` (single-story) or `.praxis/slices/{slice-id}/tdd.md` (multi-slice).
 
 ## Guardrails
 

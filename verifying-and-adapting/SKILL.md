@@ -88,6 +88,7 @@ This is Scrum's "inspect and adapt" applied at the story level, not the sprint l
 
 Read `references/templates.md` when producing output.
 Read `references/examples.md` for style reference.
+Write to `.praxis/verification.md` (single-story) or `.praxis/slices/{slice-id}/verification.md` (multi-slice).
 
 ## Downstream Handoff
 

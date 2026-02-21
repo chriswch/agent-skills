@@ -72,6 +72,7 @@ Use the **Design Sketch** template from `references/templates.md`.
 
 - Read `references/templates.md` when producing the output (step 6).
 - Read `references/examples.md` for style reference when unsure about output quality or format.
+- Write to `.praxis/sketch.md` (single-story) or `.praxis/slices/{slice-id}/sketch.md` (multi-slice).
 
 ## Guardrails
 

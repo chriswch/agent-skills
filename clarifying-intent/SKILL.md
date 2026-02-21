@@ -85,11 +85,13 @@ The full pipeline (`clarifying-intent` → `slicing-stories` → `sketching-desi
 
 Use the **Feature Brief** template from `references/templates.md`:
 - Problem/why now, goal & success criteria, scope boundaries, constraints & risks (if surfaced), open questions, downstream handoff (split into stories).
+- Write to `.praxis/brief.md`.
 
 ### Story-level (small/medium input)
 
 Use the **Story-Level Behavioral Spec** template from `references/templates.md`:
 - Problem (1–2 sentences), acceptance criteria (Given/When/Then — this is the primary artifact), scope boundaries, what must not break, open unknowns, downstream handoff.
+- Write to `.praxis/spec.md` (single-story) or `.praxis/slices/{slice-id}/spec.md` (multi-slice).
 
 For full templates, question sets, and worked examples, read:
 - `references/templates.md`
