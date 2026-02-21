@@ -44,14 +44,15 @@ Produce two artifacts:
 2. **Identify seam lines.**
    - Find natural boundaries where the feature can be split into independently deliverable, testable behaviors.
    - Apply slicing heuristics (see `references/templates.md`):
-     - Start with a walking skeleton (thinnest end-to-end path).
+     - Start with a walking skeleton — the thinnest end-to-end path that delivers value to one real user with one real integration. Use real dependencies (a real IdP, a real database, a real API), not stubs or test doubles. The skeleton proves the architecture BY delivering value, not instead of it.
      - Then add: validation/error states, edge cases, permissions/roles, performance/accessibility, telemetry.
      - Split by persona, workflow step, data subset, or capability tier (read → create → edit → bulk).
    - Each slice must be a vertical cut (end-to-end behavior), not a horizontal layer (frontend-only, backend-only).
+   - **Spikes are not slices.** If you need to validate a technology or integration before committing, that's a spike — a time-boxed throwaway experiment. Spikes belong in `clarifying-intent` as risk-reduction activities, not in the slice map as user stories. Don't dress a spike in a user story format with a fake "so that" clause.
 
 3. **Order the slices.**
    - Sequence so that earlier slices lay foundations for later ones.
-   - The first slice should be the walking skeleton: the thinnest possible end-to-end path that proves the integration works.
+   - The first slice should be the walking skeleton: the thinnest end-to-end path that delivers value to one real user with one real integration.
    - For each slice, write a brief `sequence_rationale` explaining why it's in this position.
 
 4. **Produce the slice map.**
@@ -65,12 +66,18 @@ Produce two artifacts:
    - Do **not** write acceptance criteria — that's `clarifying-intent`'s job when it specs each slice.
 
 5. **Validate.**
-   - Self-check:
-     - Does every slice deliver user-visible value (not just a technical layer)?
-     - Can each slice be independently tested?
-     - Does the first slice prove the core integration / highest-risk assumption?
+   - **INVEST check** — for each slice, verify:
+     - **I**ndependent — can be reprioritized relative to other slices (some sequencing is inevitable, but minimize hard dependencies).
+     - **N**egotiable — scope can be adjusted without invalidating the slice.
+     - **V**aluable — delivers value to a real user, not just to the team. Apply the litmus test: "If we shipped this slice and stopped, would at least one real user get value from it?" If the answer is "only if combined with a later slice," it's not independently valuable — merge it with the slice it depends on, or restructure so it delivers value on its own.
+     - **E**stimable — scope is clear enough to estimate effort.
+     - **S**mall — fits within a sprint.
+     - **T**estable — acceptance criteria can be written and verified.
+   - **Additional checks:**
+     - Does the first slice (walking skeleton) deliver value to a real user with a real integration, not just prove architecture with stubs?
      - Are `scope_in` boundaries clear enough that `clarifying-intent` can spec the slice without asking "what are we building?"
      - Do `scope_out` boundaries prevent overlap between slices?
+     - Is anything in the slice map actually a spike (technology validation, integration proof) rather than a user story? If so, extract it as a spike in `clarifying-intent` and remove it from the slice map.
    - If producing JSON, run `python3 scripts/validate_slice_map.py .praxis/slice-map.json`.
 
 ## Downstream Handoff

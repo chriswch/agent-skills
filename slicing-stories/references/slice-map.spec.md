@@ -82,67 +82,69 @@ Ordered list of story outlines. Position in the array determines build sequence.
   "slices": [
     {
       "id": "S-001",
-      "title": "Auth middleware rejects unauthenticated requests",
-      "story": "As an API consumer, I want unauthenticated requests to be rejected with 401, so that the API is protected from unauthorized access.",
+      "title": "One client authenticates end-to-end",
+      "story": "As a platform admin, I want to issue credentials to one pilot client and have the API reject unauthenticated requests, so that we can validate auth works with real traffic.",
       "scope_in": [
-        "Middleware checks for a valid Bearer token in the Authorization header",
+        "Admin endpoint to create client credentials (single client)",
+        "Auth middleware checks for valid Bearer token in Authorization header",
         "Returns 401 with JSON error body if missing or invalid",
         "Passes through to handler if valid",
-        "Health-check endpoint is exempt"
+        "Health-check endpoint is exempt",
+        "Dual-mode: unauthenticated requests still allowed (opt-in enforcement per client)"
       ],
       "scope_out": [
-        "Token issuance and storage (S-002)",
-        "Token expiry and refresh (S-003)",
-        "Client migration (S-004)"
+        "Token expiry and refresh (S-002)",
+        "Credential revocation (S-003)",
+        "Full client migration (S-004)"
       ],
-      "sequence_rationale": "Walking skeleton — proves the auth integration works end-to-end. All subsequent slices build on this middleware.",
+      "sequence_rationale": "Walking skeleton — delivers real value: one pilot client can authenticate, and the admin can verify auth works with real traffic. Dual-mode ensures existing clients aren't broken.",
       "open_unknowns": [
         "Token signature algorithm (HS256 vs RS256) — does not block; middleware can accept either"
       ]
     },
     {
       "id": "S-002",
-      "title": "Client credential issuance and storage",
-      "story": "As a platform admin, I want to issue API credentials to clients, so that they can authenticate against the middleware.",
-      "scope_in": [
-        "Admin endpoint to create client credentials",
-        "Credentials stored securely",
-        "Admin endpoint to revoke credentials"
-      ],
-      "scope_out": [
-        "Self-service key rotation (deferred post-v1)",
-        "Token expiry and refresh (S-003)"
-      ],
-      "sequence_rationale": "Without credentials, the middleware from S-001 has no tokens to validate. This slice makes auth usable."
-    },
-    {
-      "id": "S-003",
       "title": "Token expiry and refresh",
-      "story": "As an API consumer, I want tokens to expire and be refreshable, so that compromised tokens have limited impact.",
+      "story": "As an API consumer, I want my tokens to expire and be refreshable, so that compromised tokens have limited impact.",
       "scope_in": [
         "Tokens include an expiry claim",
         "Middleware rejects expired tokens",
         "Refresh endpoint issues new tokens"
       ],
       "scope_out": [
-        "Client migration (S-004)",
+        "Credential revocation (S-003)",
         "Self-service key rotation (deferred post-v1)"
       ],
-      "sequence_rationale": "Builds on S-001 (middleware) and S-002 (credentials). Expiry is required before exposing auth to existing clients."
+      "sequence_rationale": "Builds on S-001. Expiry is a security requirement before rolling auth out to more clients."
+    },
+    {
+      "id": "S-003",
+      "title": "Credential revocation",
+      "story": "As a platform admin, I want to revoke compromised credentials, so that I can respond to security incidents.",
+      "scope_in": [
+        "Admin endpoint to revoke credentials",
+        "Revoked tokens rejected by middleware",
+        "Credentials stored securely with revocation status"
+      ],
+      "scope_out": [
+        "Self-service key rotation (deferred post-v1)",
+        "Full client migration (S-004)"
+      ],
+      "sequence_rationale": "Builds on S-001 and S-002. Revocation is required before onboarding more clients — admins need an incident response mechanism."
     },
     {
       "id": "S-004",
       "title": "Existing clients migrated to use tokens",
-      "story": "As an existing API consumer, I want to be migrated to token-based auth, so that the API can enforce authentication without breaking my integration.",
+      "story": "As an existing API consumer, I want a clear migration path to token-based auth, so that I can authenticate before unauthenticated access is sunset.",
       "scope_in": [
         "Migration guide for existing clients",
-        "Dual-mode period: accept both unauthenticated and authenticated requests",
+        "Admin can issue credentials to all existing clients",
         "Sunset deadline for unauthenticated access"
       ],
       "scope_out": [
         "External partner onboarding (S-005)"
       ],
-      "sequence_rationale": "Requires all auth infrastructure (S-001 through S-003) to be in place. Migration is higher priority than new partner onboarding."
+      "sequence_rationale": "Requires auth infrastructure (S-001 through S-003) to be production-ready. Migration is higher priority than new partner onboarding."
     },
     {
       "id": "S-005",
@@ -161,3 +163,17 @@ Ordered list of story outlines. Position in the array determines build sequence.
   ]
 }
 ```
+
+### Why this slicing works
+
+Each slice passes the INVEST litmus test — "If we shipped this slice and stopped, would at least one real user get value?"
+
+| Slice | Value if shipped alone |
+|---|---|
+| S-001 | Yes — one pilot client authenticates with real traffic; existing clients aren't broken (dual-mode). |
+| S-001 + S-002 | Yes — tokens expire, reducing blast radius of compromise. |
+| S-001–S-003 | Yes — admins can revoke compromised credentials. |
+| S-001–S-004 | Yes — all existing clients migrated. |
+| S-001–S-005 | Yes — external partners can onboard. |
+
+Compare with the anti-pattern of S-001 being "middleware rejects unauthenticated requests" without token issuance: that slice has **negative** user value if deployed — it blocks existing users with no way to authenticate.

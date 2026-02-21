@@ -112,8 +112,9 @@ For full templates, question sets, and worked examples, read:
 
 When the input is feature-sized, guide toward vertical slices before speccing in detail:
 - Split by **user-facing behavior**, not by technical layer.
-- Each slice should be independently deliverable and testable.
-- For the first slice, prefer a **walking skeleton**: the thinnest possible end-to-end path that proves the integration/architecture works. Subsequent slices add behaviors on top of this skeleton.
+- Each slice should be independently deliverable, testable, and valuable to a real user (INVEST). Apply the litmus test: "If we shipped this slice and stopped, would at least one real user get value from it?"
+- For the first slice, prefer a **walking skeleton**: the thinnest end-to-end path that delivers value to one real user with one real integration. Use real dependencies, not stubs. The skeleton proves the architecture BY delivering value, not instead of it.
+- If you need to validate a technology before committing, that's a **spike** (time-boxed throwaway experiment), not a story slice. Don't put spikes in the slice map.
 - Pick the highest-value or highest-risk slice to spec first (the walking skeleton often is both).
 - Hand off to `slicing-stories` for the slice map.
 
