@@ -46,7 +46,7 @@ If the input is vague, underspecified, or feature-sized, redirect to `clarifying
 4. **Propose a direction.**
    - State **one approach** in 2–5 sentences. Not alternatives — pick one.
    - If the approach involves a data structure change, state it explicitly. (Get the data structures right and the code follows.)
-   - Name the **first test to write** — the specific test case derived from the spec's happy-path AC, including where the test file goes.
+   - Name the **first test to write** — the specific test case derived from the spec's happy-path AC, including where the test file goes. Follow the project's test placement conventions (see `driving-tdd/references/project-conventions.md`).
    - Flag **risks** that might force a pivot during TDD. If a risk is high uncertainty, mark it as a **spike** — a time-boxed throwaway experiment to resolve before committing.
 
 5. **Self-check before producing output.**

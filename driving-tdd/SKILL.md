@@ -28,7 +28,7 @@ This is where the real design happens. The design sketch gave a direction; TDD's
      - **Large**: Should have been sliced first. Redirect to `slicing-stories`.
    - Read the behavioral spec. List every acceptance criterion.
    - If a design sketch exists, read it for the change map and first test.
-   - If no sketch, explore the codebase: test framework, file conventions, existing patterns. Just enough to place the first test.
+   - If no sketch, read [references/project-conventions.md](references/project-conventions.md) for test placement rules, then explore the codebase to confirm conventions and locate the first test file.
    - Output: **AC checklist**. See `references/templates.md`.
 
 2. **Order the ACs.**
@@ -105,5 +105,6 @@ This is where the real design happens. The design sketch gave a direction; TDD's
 
 ## References
 
+- Project test conventions (placement, structure, patterns): `references/project-conventions.md`
 - Templates (AC checklist, feedback log, session summary): `references/templates.md`
 - Worked examples: `references/examples.md`

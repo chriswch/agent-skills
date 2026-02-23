@@ -34,7 +34,7 @@ This is Scrum's "inspect and adapt" applied at the story level, not the sprint l
 
 2. **Holistic acceptance check.**
    - Walk through every AC in the *original spec* (not just the test names). For each one:
-     - A passing test exists.
+     - A passing test exists in the correct location per project conventions (see `driving-tdd/references/project-conventions.md`).
      - The test exercises the behavior described in the AC, not just a name match.
      - Edge cases stated in the AC are covered.
    - This catches the gap where tests pass but don't actually test what the AC describes.
