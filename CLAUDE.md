@@ -1,6 +1,6 @@
 # Praxis
 
-Spec-driven, test-driven development skills for Claude Code.
+Spec-driven, test-driven development plugin for Claude Code.
 
 ## Workflow
 
