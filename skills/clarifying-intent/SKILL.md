@@ -1,6 +1,7 @@
 ---
 name: clarifying-intent
 description: Clarifies ambiguous ideas, features, tasks, user stories, or problems by eliciting intent, constraints, unknowns, risks, and success criteria; asks focused questions; then produces a structured Feature Brief or Story-Level Behavioral Spec with testable acceptance criteria. Use when a request is vague or underspecified, when scoping work, when a user says "I have a rough idea", "help me scope this", "what should we build", "spec this out", or before planning and coding.
+allowed-tools: Read, Grep, Glob, Write, Edit, AskUserQuestion
 ---
 
 # Clarify Intent
@@ -84,16 +85,19 @@ The full pipeline (`clarifying-intent` → `slicing-stories` → `sketching-desi
 ### Feature-level (large input)
 
 Use the **Feature Brief** template from `references/templates.md`:
+
 - Problem/why now, goal & success criteria, scope boundaries, constraints & risks (if surfaced), open questions, downstream handoff (split into stories).
 - Write to `.praxis/brief.md`.
 
 ### Story-level (small/medium input)
 
 Use the **Story-Level Behavioral Spec** template from `references/templates.md`:
+
 - Problem (1–2 sentences), acceptance criteria (Given/When/Then — this is the primary artifact), scope boundaries, what must not break, open unknowns, downstream handoff.
 - Write to `.praxis/spec.md` (single-story) or `.praxis/slices/{slice-id}/spec.md` (multi-slice).
 
 For full templates, question sets, and worked examples, read:
+
 - `references/templates.md`
 - `references/question-bank.md`
 - `references/examples.md`
@@ -111,6 +115,7 @@ For full templates, question sets, and worked examples, read:
 ## Splitting Guidance (Feature-Level Only)
 
 When the input is feature-sized, guide toward vertical slices before speccing in detail:
+
 - Split by **user-facing behavior**, not by technical layer.
 - Each slice should be independently deliverable, testable, and valuable to a real user (INVEST). Apply the litmus test: "If we shipped this slice and stopped, would at least one real user get value from it?"
 - For the first slice, prefer a **walking skeleton**: the thinnest end-to-end path that delivers value to one real user with one real integration. Use real dependencies, not stubs. The skeleton proves the architecture BY delivering value, not instead of it.

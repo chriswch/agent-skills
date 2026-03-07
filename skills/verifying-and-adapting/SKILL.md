@@ -1,6 +1,7 @@
 ---
 name: verifying-and-adapting
 description: Closes the loop after TDD by verifying the implementation holistically against the behavioral spec, reconciling spec-vs-reality divergences, capturing emerged design knowledge, and routing to the next slice or done. Use after driving-tdd completes. Triggers on "verify this", "are we done?", "check against the spec", "close out this story", "what's next?", "wrap up", or when all TDD acceptance criteria are green and the developer needs to confirm completion and decide the next step.
+allowed-tools: Read, Grep, Glob, Write, Edit, AskUserQuestion
 ---
 
 # Verify and Adapt
@@ -33,7 +34,7 @@ This is Scrum's "inspect and adapt" applied at the story level, not the sprint l
      - **Large**: You shouldn't be here — should have been sliced. Redirect to `slicing-stories`.
 
 2. **Holistic acceptance check.**
-   - Walk through every AC in the *original spec* (not just the test names). For each one:
+   - Walk through every AC in the _original spec_ (not just the test names). For each one:
      - A passing test exists.
      - The test exercises the behavior described in the AC, not just a name match.
      - Edge cases stated in the AC are covered.
@@ -45,7 +46,7 @@ This is Scrum's "inspect and adapt" applied at the story level, not the sprint l
    - Compare what was built against what the spec said. For each AC, one of:
      - **Match** — implementation matches spec. No action.
      - **Refined** — implementation is faithful but details evolved (e.g., error message wording, specific status codes). Update the spec to match reality.
-     - **Diverged** — implementation deviated from spec (e.g., a constraint was impossible, a dependency forced a different approach). Document *why* and update the spec.
+     - **Diverged** — implementation deviated from spec (e.g., a constraint was impossible, a dependency forced a different approach). Document _why_ and update the spec.
    - Pull from driving-tdd's feedback log — discoveries already captured there flow into spec updates here.
    - The updated spec is the source of truth. Tests validate behavior; the spec documents intent. They must agree.
 

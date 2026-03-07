@@ -1,6 +1,7 @@
 ---
 name: linus-style-reviewing
 description: "Review designs, diffs, and PRs with a Linus Torvalds-inspired, no-nonsense kernel-maintainer mindset: prioritize good taste, simple data structures, fewer special cases, and backwards compatibility ('never break userspace'). Use when the user asks for a 'Linus-style' critique or when you need an early project quality/risk review."
+allowed-tools: Read, Grep, Glob, Bash(git *)
 ---
 
 # Linus Style Review
@@ -62,6 +63,7 @@ Use these headings verbatim to make reviews scannable and consistent.
 ✅ Worth doing: [why] / ❌ Not worth doing: [why] / ⚠️ More information required: [what is missing]
 
 【Key Insights】
+
 - Data Structures: [most critical data relationship/ownership issue]
 - Special Cases: [worst special-case branch and why it exists]
 - Complexity: [complexity that can be removed]
@@ -69,6 +71,7 @@ Use these headings verbatim to make reviews scannable and consistent.
 - Practicality: [why this matters now, and expected impact]
 
 【Linus-Style Solution】
+
 1. Simplify data structures first.
 2. Eliminate special cases (redesign until branches disappear).
 3. Implement in the dumbest but clearest way.
@@ -81,9 +84,11 @@ Use these headings verbatim to make reviews scannable and consistent.
 🟢 Good taste / 🟡 Mediocre / 🔴 Garbage
 
 【Critical Issues】
+
 - [List the worst issues first: wrong data structure, needless complexity, broken compatibility, hidden failures, unclear ownership.]
 
 【Improvement Direction】
-- "Eliminate this special case by changing the data structure to ___"
-- "These N lines can be reduced to M by ___"
-- "This behavior risks breaking ___; preserve it by ___"
+
+- "Eliminate this special case by changing the data structure to \_\_\_"
+- "These N lines can be reduced to M by \_\_\_"
+- "This behavior risks breaking **_; preserve it by _**"

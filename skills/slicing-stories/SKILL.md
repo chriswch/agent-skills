@@ -1,6 +1,7 @@
 ---
 name: slicing-stories
 description: Splits a Feature Brief into an ordered slice map of thin, vertical story slices — each capturing scope and build order, while deferring detailed acceptance criteria to downstream `clarifying-intent`. Use after clarifying-intent produces a Feature Brief, when a feature is too large for one story. Triggers on "split this into stories", "slice this feature", "what should we build first", "create a slice map", or when a Feature Brief needs to be broken into deliverable increments.
+allowed-tools: Read, Grep, Glob, Bash(python3 *), Write, Edit, AskUserQuestion
 ---
 
 # Agile Story Slicer
@@ -14,6 +15,7 @@ Pipeline: `clarifying-intent [Feature Brief]` → **slicing-stories [slice map]*
 ## Input Contract
 
 Expects a **Feature Brief** from `clarifying-intent` containing:
+
 - Problem / why now
 - Goal & success criteria
 - Scope boundaries (in / out)
@@ -85,6 +87,7 @@ Produce two artifacts:
 Each slice goes back to `clarifying-intent` to produce a Story-Level Behavioral Spec. The sequence in the slice map determines build order.
 
 **Feedback loop**: The slice map is a living artifact, not a frozen plan. When speccing or implementing a later slice reveals that the boundaries, ordering, or number of slices need to change — update the slice map. Common triggers:
+
 - Implementing slice N reveals slice N+1 should be split or merged.
 - A deferrable unknown becomes blocking and forces reordering.
 - A slice turns out to be trivial and should be absorbed into an adjacent slice.
