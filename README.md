@@ -1,6 +1,6 @@
 # Praxis
 
-Spec-driven, test-driven development skills.
+Spec-driven, test-driven development plugin.
 
 Theory without practice is empty. Practice without theory is blind. **Praxis** is the cycle where understanding and action inform each other — you spec what to build, build it through TDD, verify against the spec, and adapt when reality diverges.
 
@@ -55,6 +55,25 @@ Every skill triages by size and skips ceremony that doesn't earn its keep.
 **Last responsible moment.** Defer decisions until you have the information to make them well. Carry unknowns forward as notes, not premature commitments.
 
 **Proportional ceremony.** A one-line fix doesn't need a spec. A multi-slice feature does. Every skill triages first and scales accordingly.
+
+## Plugin structure
+
+```
+praxis/
+├── .claude-plugin/
+│   └── plugin.json          # Plugin manifest
+├── skills/                  # Skill definitions
+│   ├── clarifying-intent/
+│   ├── slicing-stories/
+│   ├── sketching-design/
+│   ├── driving-tdd/
+│   ├── verifying-and-adapting/
+│   └── linus-style-reviewing/
+├── commands/                # Slash commands
+│   └── praxis.md            # Full workflow orchestrator
+├── CLAUDE.md
+└── README.md
+```
 
 ## License
 
