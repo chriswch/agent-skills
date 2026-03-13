@@ -1,5 +1,6 @@
 ---
 description: Drive the spec-driven + test-driven development workflow for the task below, advancing through each stage with user checkpoints between stages.
+allowed-tools: Skill(praxis:clarifying-intent), Skill(praxis:slicing-stories), Skill(praxis:sketching-design), Skill(praxis:driving-tdd), Skill(praxis:verifying-and-adapting), Skill(praxis:linus-style-reviewing)
 ---
 
 # Praxis Workflow
@@ -39,10 +40,12 @@ After the skill finishes, confirm the artifact with the user before continuing.
 Invoke the `slicing-stories` skill.
 
 When the skill completes:
+
 - If `## Blocking Questions` appears in the output, resolve them with the user using `AskUserQuestion`, then re-invoke the skill.
 - Otherwise, read `.praxis/slice-map.json` and present the slice map to the user. Confirm before continuing.
 
 **Slice iteration:** Once confirmed, iterate through slices in sequence order. For each slice:
+
 1. Run Stage 1 (clarifying-intent, inline) to produce a Story-Level Spec at `.praxis/slices/{slice-id}/spec.md`.
 2. Continue through Stages 3-5, passing `.praxis/slices/{slice-id}/` as the skill argument.
 
@@ -51,6 +54,7 @@ When the skill completes:
 Invoke the `sketching-design` skill, passing the artifact directory as the argument (e.g., `.praxis/slices/S-001/` for multi-slice, or omit for single-story).
 
 When the skill completes:
+
 - If a sketch was produced, read it and present to the user. Confirm before continuing.
 - If `SKETCH_SKIPPED` appears in the output, inform the user and proceed directly to Stage 4.
 - If `## Spec Issue` appears, resolve it with the user using `AskUserQuestion`, update the spec, then re-invoke the skill.
@@ -60,6 +64,7 @@ When the skill completes:
 Invoke the `driving-tdd` skill, passing the artifact directory as the argument.
 
 When the skill completes, check the TDD session summary:
+
 - **If `## Feedback` exists**: A spec issue needs resolution. Run `clarifying-intent` inline to resolve it with the user. Update the spec. Then re-invoke `driving-tdd` — it will pick up from the updated spec and the existing test files.
 - **If all ACs are green**: Read the TDD session summary and proceed to Stage 5.
 
@@ -68,6 +73,7 @@ When the skill completes, check the TDD session summary:
 Invoke the `verifying-and-adapting` skill, passing the artifact directory as the argument.
 
 Follow the routing decision in the output:
+
 - **`ROUTING: DONE`**: Workflow complete. Read the verification summary and report to the user.
 - **`ROUTING: NEXT_SLICE <slice-id>`**: Return to the slice iteration loop. Run Stage 1 (clarifying-intent, inline) for the indicated slice, then continue through Stages 3-5.
 - **`ROUTING: REWORK <description>`**: Return to Stage 4. Re-invoke `driving-tdd` to address the specific gaps identified.
