@@ -6,6 +6,7 @@ Theory without practice is empty. Practice without theory is blind. **Praxis** i
 
 ## How it works
 
+Start from the highest level of abstraction — a vague idea, a problem statement, a feature request — and transform it step by step into concrete, working code. Each stage has one job. Do that job and move on.
 
 ```text
      clarifying-intent
