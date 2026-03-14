@@ -4,7 +4,8 @@ Spec-driven, test-driven development plugin.
 
 Theory without practice is empty. Practice without theory is blind. **Praxis** is the cycle where understanding and action inform each other — you spec what to build, build it through TDD, verify against the spec, and adapt when reality diverges.
 
-## The workflow
+## How it works
+
 
 ```text
      clarifying-intent
@@ -58,11 +59,23 @@ Every skill triages by size and skips ceremony that doesn't earn its keep.
 
 ## Principles
 
+**Progressive refinement.** Start from the highest abstraction — a vague idea, a user problem — and transform it step by step into spec, design, tests, and code. Each stage has one job. Do that job and move on.
+
+**Core behavior, not exhaustive coverage.** Focus acceptance criteria and tests on the behaviors users will perceive. Each AC should represent a change a real user can see or experience. A few precise criteria beat many overlapping ones.
+
+**High standards, fewer tests.** Each acceptance criterion and test should be precise and meaningful. Avoid redundant tests that verify the same behavior from different angles. Quality over quantity in both implementation and testing.
+
+**Sharp, fast, minimal.** Deliver a version that allows users to use the core functionality, does not break existing behavior, and maintains sufficient code quality. Do not wait for a perfect result before shipping.
+
 **Spec-driven, not doc-driven.** The spec is a living checklist of testable behaviors, not a frozen document. Update it when reality diverges.
 
 **Design emerges from TDD.** The design sketch is a compass, not a blueprint. The real architecture reveals itself during Red → Green → Refactor.
 
-**Thin vertical slices.** Each slice delivers one end-to-end behavior. The first slice is always a walking skeleton that proves the integration.
+**Thin vertical slices.** Each slice delivers one end-to-end behavior a user can perceive. The first slice is always a walking skeleton that proves the integration.
+
+**Do not break what works.** Run existing tests after every change. Existing behavior is a contract — honor it unless explicitly told otherwise.
+
+**Sufficiently maintainable code.** Simple, effective, pragmatic, easy to understand, extensible, easy to change. Not theoretically optimal — practically good.
 
 **Last responsible moment.** Defer decisions until you have the information to make them well. Carry unknowns forward as notes, not premature commitments.
 
