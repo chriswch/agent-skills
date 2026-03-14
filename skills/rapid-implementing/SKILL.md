@@ -1,6 +1,6 @@
 ---
 name: rapid-implementing
-description: Rapidly implements a Story-Level Behavioral Spec (and optional design sketch) by writing production code that addresses each acceptance criterion without writing tests. Use for prototype/MVP mode when speed is prioritized over test coverage. Triggers on "/forge", rapid implementation, or when a spec is ready and the goal is fast code without TDD.
+description: Rapidly implements a Story-Level Behavioral Spec (and optional design sketch) by writing production code that addresses each acceptance criterion without writing new tests. Use when speed is prioritized over test-driven verification. Triggers on "/forge", rapid implementation, or when a spec is ready and the goal is fast delivery without TDD.
 context: fork
 allowed-tools: Read, Grep, Glob, Bash, Write, Edit, LSP
 ---
@@ -15,7 +15,7 @@ Read the spec from `{artifact-dir}/spec.md`. Read the sketch (if it exists) from
 
 ## Overview
 
-Turn acceptance criteria into working code — fast. Each AC becomes implemented behavior, following existing codebase patterns, without writing new tests. The goal is a working prototype, not production-hardened code.
+Turn acceptance criteria into working code — fast. Each AC becomes implemented behavior, following existing codebase patterns, without writing new tests. The output is production-grade code — same quality standards as `/craft`, just without the test-driven verification loop.
 
 The behavioral spec provides the implementation guidance. The design sketch (if present) shows where to put the code. Your job: make each AC real in the simplest way that works.
 
@@ -55,7 +55,7 @@ The behavioral spec provides the implementation guidance. The design sketch (if 
    - Mark the AC as Implemented. Move to the next.
 
 4. **Integration check.**
-   - After all ACs are implemented, run the full existing test suite. If existing tests break, fix the breakage — the goal is a working prototype, not a broken one.
+   - After all ACs are implemented, run the full existing test suite. If existing tests break, fix the breakage — production-grade means nothing breaks.
    - Walk the AC checklist: every criterion is addressed in code.
    - Check that the implementation hangs together as a coherent whole, not just isolated changes.
 
@@ -85,8 +85,8 @@ The behavioral spec provides the implementation guidance. The design sketch (if 
 ## Guardrails
 
 - **Follow existing patterns.** Use the project's naming conventions, module structure, error handling, and coding style. Consistency with the codebase matters more than theoretical best practices.
-- **Do not write new tests.** This is prototype mode. Test coverage comes later if the prototype is promoted to production via the full `/craft` workflow.
-- **Do not break existing tests.** Run the existing suite after implementation. If something breaks, fix it. A prototype that breaks existing functionality is worse than no prototype.
+- **Do not write new tests.** Speed over verification. Test coverage can be added later via `/craft` if needed.
+- **Do not break existing tests.** Run the existing suite after implementation. If something breaks, fix it. Production-grade code does not break existing functionality.
 - **One AC at a time.** Implement in order. Don't jump ahead or batch.
 - **Minimum to satisfy.** Implement what the AC asks for. Don't gold-plate, don't add features the spec doesn't mention, don't build abstractions for hypothetical future needs.
 - **Feedback is a feature.** Discovering the spec was wrong is the system working. Surface gaps under `## Feedback` and stop; don't silently patch around them.

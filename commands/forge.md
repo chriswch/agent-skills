@@ -1,11 +1,11 @@
 ---
-description: Drive a rapid prototype/MVP workflow — full interactive clarification, then auto-advance through design and implementation without tests or human checkpoints.
+description: Drive the fast delivery workflow — full interactive clarification, then auto-advance through design and implementation without writing new tests or pausing for human checkpoints.
 allowed-tools: Skill(praxis:clarifying-intent), Skill(praxis:slicing-stories), Skill(praxis:sketching-design), Skill(praxis:rapid-implementing)
 ---
 
 # Forge Workflow
 
-This command orchestrates the rapid prototype/MVP workflow. Same spec-driven clarification as `/craft`, but after requirements are locked, it auto-advances through design and implementation without pausing for human checkpoints and without writing tests.
+This command orchestrates the fast delivery workflow. Same spec-driven clarification as `/craft`, but after requirements are locked, it auto-advances through design and implementation without pausing for human checkpoints and without writing new tests. The output is production-grade code — same quality standards, just without the test-driven verification loop.
 
 ## Task
 
