@@ -37,6 +37,7 @@ This is where the real design happens. The design sketch gave a direction; TDD's
    - Read the behavioral spec. List every acceptance criterion.
    - If a design sketch exists, read it for the change map and first test.
    - If no sketch, explore the codebase: test framework, file conventions, existing patterns. Just enough to place the first test.
+   - Check recent `git log --oneline` for commit message conventions (conventional commits, prefix style, etc.).
    - Output: **AC checklist**. See `${CLAUDE_SKILL_DIR}/references/templates.md`.
 
 2. **Order the ACs.**
@@ -62,7 +63,11 @@ This is where the real design happens. The design sketch gave a direction; TDD's
    - **Run tests after each change.** Every refactor must keep the suite green.
    - If the sketch's approach doesn't fit what the code is telling you, discard it. The code under tests is the source of truth.
 
-6. **Loop.** Mark the AC done. Return to step 3. Repeat until all ACs are green.
+6. **Commit and loop.**
+   - Stage the files changed in this cycle (test and source files) and commit. Each commit should leave the full suite green.
+   - Commit message: describe the behavior, imperative mood, following the project's commit conventions. `Reject requests without auth token` — not `Add test for AC-3`.
+   - If the refactor was substantial (extracted a module, renamed across files), split into two commits: first the test + minimum implementation, then the refactor. Reviewers can verify the refactor changed structure, not behavior.
+   - Mark the AC done. Return to step 3. Repeat until all ACs are green.
 
 7. **Verify.**
    - **Run the full test suite.**
@@ -108,6 +113,7 @@ This is where the real design happens. The design sketch gave a direction; TDD's
 - **Green means ALL green.** Never move to the next AC with a failing test in the suite.
 - **Names are documentation.** `rejects expired tokens` beats `test_token_validation_3`.
 - **No gold-plating.** When all ACs are green and the suite passes, stop. Missing coverage goes through `clarifying-intent`, not into speculative tests.
+- **Commit per AC.** Each Red → Green → Refactor cycle ends with a commit. The reviewer sees a progression where each commit adds one behavior with its test. Don't batch multiple ACs into one commit. Don't commit at Red — a failing test in history breaks bisect and CI.
 - **Feedback is a feature.** Discovering the spec was wrong is the system working. Surface gaps under `## Feedback` and stop; don't silently patch around them.
 
 ## References

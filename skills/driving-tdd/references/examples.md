@@ -57,6 +57,8 @@ Register in `src/app.ts` following the same pattern as `request-logger.ts`. Run:
 
 **Refactor**: Nothing — one function, four lines. Move on.
 
+**Commit**: `Reject requests without auth header`
+
 ### Cycle 2 — AC 3: passes authenticated requests through
 
 **Red**
@@ -93,9 +95,11 @@ Run: `npm test` → **ALL GREEN**.
 
 **Refactor**: Extract `Bearer ` parsing into a helper? Only one call site — skip. Rule of three not met.
 
+**Commit**: `Pass authenticated requests through with userId`
+
 ### Cycles 3–4
 
-Same pattern. AC 2 adds expiry check in a catch block. AC 4 adds a path check that bypasses auth for `/health`.
+Same pattern. AC 2 adds expiry check in a catch block. AC 4 adds a path check that bypasses auth for `/health`. Each cycle ends with a commit: `Reject requests with expired token`, `Allow health-check without auth`.
 
 ### Session Summary
 
@@ -144,4 +148,4 @@ This is the feedback loop working as designed — not a failure of planning.
 
 **Triage**: Trivial — one AC, one file, obvious implementation. Skip the AC checklist and session summary.
 
-**One cycle**: Red (assert `user.createdAt` is within 1 second of `Date.now()`). Green (add `createdAt: new Date()` to the create function). Refactor (nothing — one line). Run full suite. Done.
+**One cycle**: Red (assert `user.createdAt` is within 1 second of `Date.now()`). Green (add `createdAt: new Date()` to the create function). Refactor (nothing — one line). Run full suite. Commit: `Add created_at timestamp to user records`. Done.

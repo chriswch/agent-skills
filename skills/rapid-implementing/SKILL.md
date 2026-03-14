@@ -37,6 +37,7 @@ The behavioral spec provides the implementation guidance. The design sketch (if 
    - Read the behavioral spec. List every acceptance criterion.
    - If a design sketch exists, read it for the change map and approach direction.
    - If no sketch, explore the codebase: file conventions, existing patterns. Just enough to place the code.
+   - Check recent `git log --oneline` for commit message conventions (conventional commits, prefix style, etc.).
    - Output: **AC checklist**. See `${CLAUDE_SKILL_DIR}/references/templates.md`.
 
 2. **Order the ACs.**
@@ -52,6 +53,7 @@ The behavioral spec provides the implementation guidance. The design sketch (if 
    - Follow existing codebase patterns — naming, structure, error handling, module organization.
    - Run any existing tests after each AC to make sure nothing breaks. Existing tests are a safety net, not a target — don't write new ones, but don't break old ones either.
    - If the behavior already exists, mark the AC done and move on.
+   - Stage the files changed for this AC and commit. Commit message: describe the behavior, imperative mood, following the project's commit conventions. `Reject requests without auth token` — not `Implement AC-3`.
    - Mark the AC as Implemented. Move to the next.
 
 4. **Integration check.**
@@ -89,6 +91,7 @@ The behavioral spec provides the implementation guidance. The design sketch (if 
 - **Do not break existing tests.** Run the existing suite after implementation. If something breaks, fix it. Production-grade code does not break existing functionality.
 - **One AC at a time.** Implement in order. Don't jump ahead or batch.
 - **Minimum to satisfy.** Implement what the AC asks for. Don't gold-plate, don't add features the spec doesn't mention, don't build abstractions for hypothetical future needs.
+- **Commit per AC.** Each implemented AC gets its own commit. The reviewer sees a progression where each commit adds one behavior. Don't batch multiple ACs into one commit.
 - **Feedback is a feature.** Discovering the spec was wrong is the system working. Surface gaps under `## Feedback` and stop; don't silently patch around them.
 
 ## References
