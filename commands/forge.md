@@ -26,7 +26,7 @@ For multi-slice features, pass the artifact directory as the skill argument (e.g
 Invoke the `clarifying-intent` skill with the task above.
 
 - The skill will triage by size and produce the appropriate artifact.
-- **Trivial**: state the change, implement it, done — skip the rest of the workflow.
+- **Trivial**: state the change, implement it, commit, done — skip the rest of the workflow.
 - **Bug fix**: after this stage, skip directly to Stage 4 (rapid-implementing). No design sketch needed.
 - **Large feature**: produces a Feature Brief (`.praxis/brief.md`). Proceed to Stage 2.
 - **Small/medium story**: produces a Story-Level Spec (`.praxis/spec.md`). Skip to Stage 3.

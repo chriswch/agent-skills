@@ -28,7 +28,7 @@ Execute the pipeline stage by stage. After each stage completes, present its out
 Invoke the `clarifying-intent` skill with the task above.
 
 - The skill will triage by size and produce the appropriate artifact.
-- **Trivial**: state the change, implement it, done — skip the rest of the workflow.
+- **Trivial**: state the change, implement it, commit, done — skip the rest of the workflow.
 - **Bug fix**: after this stage, skip directly to Stage 4 (driving-tdd).
 - **Large feature**: produces a Feature Brief (`.praxis/brief.md`). Proceed to Stage 2.
 - **Small/medium story**: produces a Story-Level Spec (`.praxis/spec.md`). Skip to Stage 3.

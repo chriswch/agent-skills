@@ -75,7 +75,7 @@ Not every task goes through the full pipeline. Match the input type to the short
 
 - **Bug fix**: `clarifying-intent` (reproduce the bug as a Given/When/Then AC) → `driving-tdd` (failing test reproducing the bug → fix → refactor) → done. Skip `sketching-design` and `verifying-and-adapting`.
 - **Refactor**: Ensure existing tests pass → refactor → ensure tests still pass. No spec needed. If tests don't exist, write characterization tests first, then refactor.
-- **Trivial change** (typo, rename, config tweak): State the change → implement → done. No spec, no sketch, no verification.
+- **Trivial change** (typo, rename, config tweak): State the change → implement → commit → done. No spec, no sketch, no verification.
 - **Small bug with obvious fix**: Write the failing test, fix it, move on. One-sentence spec at most.
 
 The full pipeline (`clarifying-intent` → `slicing-stories` → `sketching-design` → `driving-tdd` → `verifying-and-adapting`) is for medium+ features. Don't run every task through it.
