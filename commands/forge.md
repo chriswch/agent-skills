@@ -70,7 +70,10 @@ For multi-slice: after completing a slice, move directly to the next slice's Sta
 
 ### Completion
 
-When all slices are done (or the single story completes), read the implementation summary from `.praxis/implementation.md` (or the last slice's `implementation.md`) and report completion to the user.
+When all slices are done (or the single story completes):
+
+1. **Verify commits.** Each AC should have been committed individually during implementation. Check `git status` — if any implementation changes were left uncommitted, stage and commit them.
+2. Read the implementation summary from `.praxis/implementation.md` (or the last slice's `implementation.md`) and report completion to the user.
 
 ## Rules
 

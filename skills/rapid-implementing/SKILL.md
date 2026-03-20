@@ -60,6 +60,7 @@ The behavioral spec provides the implementation guidance. The design sketch (if 
    - After all ACs are implemented, run the full existing test suite. If existing tests break, fix the breakage — production-grade means nothing breaks.
    - Walk the AC checklist: every criterion is addressed in code.
    - Check that the implementation hangs together as a coherent whole, not just isolated changes.
+   - Verify all changes are committed: `git status` should show no uncommitted implementation files. If anything was missed, stage and commit it.
 
 5. **Feedback loop.**
    - Ambiguous or contradictory AC → document it under a `## Feedback` heading in the implementation summary. Write all progress so far, then **stop and return**. The orchestrator will run `clarifying-intent` to resolve the issue and re-invoke.
