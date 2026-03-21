@@ -1,6 +1,6 @@
 ---
 description: Drive the spec-driven + test-driven development workflow for the task below, advancing through each stage with user checkpoints between stages.
-allowed-tools: Skill(praxis:clarifying-intent), Skill(praxis:slicing-stories), Skill(praxis:sketching-design), Skill(praxis:driving-tdd), Skill(praxis:code-reviewing), Skill(praxis:code-improving), Skill(praxis:verifying-and-adapting), Skill(praxis:linus-style-reviewing)
+allowed-tools: Skill(praxis:clarifying-intent), Skill(praxis:slicing-stories), Skill(praxis:sketching-design), Skill(praxis:driving-tdd), Skill(praxis:code-reviewing), Skill(praxis:code-improving), Skill(praxis:verifying-and-adapting)
 ---
 
 # Craft Workflow

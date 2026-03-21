@@ -117,7 +117,7 @@ Write to `{artifact-dir}/verification.md`.
 
 ## Guardrails
 
-- **Verify behavior, not code.** Check "does this do what the spec said?" not "is this code clean?" Code quality is driving-tdd's refactor step and linus-style-reviewing's job.
+- **Verify behavior, not code.** Check "does this do what the spec said?" not "is this code clean?" Code quality is driving-tdd's refactor step and code-reviewing's job.
 - **Update the spec, don't archive it.** The spec is a living artifact. If reality diverged, the spec should reflect reality. Version control has the history.
 - **Don't re-plan future slices.** Flag impact, don't redesign. Last Responsible Moment — the next slice gets clarified when it's picked up.
 - **Don't add tests here.** If gaps are found, route back to driving-tdd. This step verifies; it doesn't implement.

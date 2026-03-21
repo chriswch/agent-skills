@@ -46,7 +46,6 @@ Same spec-driven clarification, then auto-advance without human checkpoints or t
 | `driving-tdd`            | Red → Green → Refactor, one acceptance criterion at a time                                                            |
 | `verifying-and-adapting` | Checks the whole story against the spec, reconciles divergences, routes to next slice or done                         |
 | `rapid-implementing`     | Implements acceptance criteria as production-grade code without writing new tests                                     |
-| `linus-style-reviewing`  | Blunt design and code review focused on simplicity, fewer special cases, and backwards compatibility                  |
 
 ## Fast paths
 
@@ -96,8 +95,7 @@ praxis/
 │   ├── sketching-design/
 │   ├── driving-tdd/
 │   ├── verifying-and-adapting/
-│   ├── rapid-implementing/
-│   └── linus-style-reviewing/
+│   └── rapid-implementing/
 ├── commands/                # Slash commands
 │   ├── craft.md             # Full workflow orchestrator (/craft)
 │   └── forge.md             # Fast delivery orchestrator (/forge)
