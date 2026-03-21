@@ -1,6 +1,6 @@
 ---
 description: Drive the spec-driven + test-driven development workflow for the task below, advancing through each stage with user checkpoints between stages.
-allowed-tools: Skill(praxis:clarifying-intent), Skill(praxis:slicing-stories), Skill(praxis:sketching-design), Skill(praxis:driving-tdd), Skill(praxis:verifying-and-adapting), Skill(praxis:linus-style-reviewing)
+allowed-tools: Skill(praxis:clarifying-intent), Skill(praxis:slicing-stories), Skill(praxis:sketching-design), Skill(praxis:driving-tdd), Skill(praxis:code-reviewing), Skill(praxis:code-improving), Skill(praxis:verifying-and-adapting), Skill(praxis:linus-style-reviewing)
 ---
 
 # Craft Workflow
@@ -13,7 +13,7 @@ $ARGUMENTS
 
 ## How It Works
 
-The pipeline has five stages. Each non-interactive skill has `context: fork` in its frontmatter, so it automatically runs in an isolated subagent context — codebase exploration, test writing, and reasoning stay out of this conversation. Only `clarifying-intent` runs inline (it needs `AskUserQuestion` for interactive questioning).
+The pipeline has seven stages. Each non-interactive skill has `context: fork` in its frontmatter, so it automatically runs in an isolated subagent context — codebase exploration, test writing, and reasoning stay out of this conversation. Only `clarifying-intent` runs inline (it needs `AskUserQuestion` for interactive questioning).
 
 Skills communicate through `.praxis/` filesystem artifacts. Each stage reads the previous stage's output and writes its own. The orchestrator presents each artifact to the user between stages.
 
@@ -47,7 +47,7 @@ When the skill completes:
 **Slice iteration:** Once confirmed, iterate through slices in sequence order. For each slice:
 
 1. Run Stage 1 (clarifying-intent, inline) to produce a Story-Level Spec at `.praxis/slices/{slice-id}/spec.md`.
-2. Continue through Stages 3-5, passing `.praxis/slices/{slice-id}/` as the skill argument.
+2. Continue through Stages 3-7, passing `.praxis/slices/{slice-id}/` as the skill argument.
 
 ### Stage 3: Sketch Design
 
@@ -68,15 +68,34 @@ When the skill completes, check the TDD session summary:
 - **If `## Feedback` exists**: A spec issue needs resolution. Run `clarifying-intent` inline to resolve it with the user. Update the spec. Then re-invoke `driving-tdd` — it will pick up from the updated spec and the existing test files.
 - **If all ACs are green**: Read the TDD session summary and proceed to Stage 5.
 
-### Stage 5: Verify and Adapt
+### Stage 5: Code Review
+
+Invoke the `code-reviewing` skill, passing the artifact directory as the argument.
+
+When the skill completes:
+
+- If `REVIEW_SKIPPED` appears in the output, inform the user and proceed directly to Stage 7.
+- Otherwise, read the review report and present it to the user. The report shows issues by severity (critical, high, medium, low). Explain that critical/high/medium issues will be auto-fixed in the next stage, and low issues are for the user to decide on later. Confirm before continuing.
+
+### Stage 6: Code Improvement
+
+Invoke the `code-improving` skill, passing the artifact directory as the argument.
+
+When the skill completes:
+
+- **If `IMPROVEMENT_SKIPPED`**: No review was produced. Proceed to Stage 7.
+- **If `## Feedback` exists**: A spec or test issue needs resolution. Run `clarifying-intent` inline to resolve with the user. Update the spec. Then re-invoke `code-improving`.
+- **Otherwise**: Read the improvement summary and present it to the user — what was fixed and what low-severity items remain for their consideration. Confirm before continuing to Stage 7.
+
+### Stage 7: Verify and Adapt
 
 Invoke the `verifying-and-adapting` skill, passing the artifact directory as the argument.
 
 Follow the routing decision in the output:
 
 - **`ROUTING: DONE`**: Workflow complete. Read the verification summary and report to the user.
-- **`ROUTING: NEXT_SLICE <slice-id>`**: Return to the slice iteration loop. Run Stage 1 (clarifying-intent, inline) for the indicated slice, then continue through Stages 3-5.
-- **`ROUTING: REWORK <description>`**: Return to Stage 4. Re-invoke `driving-tdd` to address the specific gaps identified.
+- **`ROUTING: NEXT_SLICE <slice-id>`**: Return to the slice iteration loop. Run Stage 1 (clarifying-intent, inline) for the indicated slice, then continue through Stages 3-7.
+- **`ROUTING: REWORK <description>`**: Return to Stage 4. Re-invoke `driving-tdd` to address the specific gaps identified. After TDD completes, continue through Stages 5-7 again.
 - **`ROUTING: ESCALATE <reason>`**: Return to Stage 1 at the feature level to rethink. May require updating the Feature Brief and Slice Map.
 
 ## Rules

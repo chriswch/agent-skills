@@ -1,6 +1,6 @@
 ---
 description: Drive the fast delivery workflow — full interactive clarification, then auto-advance through design and implementation without writing new tests or pausing for human checkpoints.
-allowed-tools: Skill(praxis:clarifying-intent), Skill(praxis:slicing-stories), Skill(praxis:sketching-design), Skill(praxis:rapid-implementing)
+allowed-tools: Skill(praxis:clarifying-intent), Skill(praxis:slicing-stories), Skill(praxis:sketching-design), Skill(praxis:rapid-implementing), Skill(praxis:code-reviewing), Skill(praxis:code-improving)
 ---
 
 # Forge Workflow
@@ -13,7 +13,7 @@ $ARGUMENTS
 
 ## How It Works
 
-The pipeline has three core stages (four for large features). Non-interactive skills have `context: fork` and run in isolated subagent contexts. Only `clarifying-intent` runs inline (it needs `AskUserQuestion` for interactive questioning).
+The pipeline has five core stages (six for large features). Non-interactive skills have `context: fork` and run in isolated subagent contexts. Only `clarifying-intent` runs inline (it needs `AskUserQuestion` for interactive questioning).
 
 Skills communicate through `.praxis/` filesystem artifacts — same paths as the full `/craft` workflow. After `clarifying-intent` finishes, the remaining stages auto-advance without user confirmation.
 
@@ -45,7 +45,7 @@ When the skill completes:
 **Slice iteration:** Iterate through slices in sequence order. For each slice:
 
 1. Run Stage 1 (clarifying-intent, inline) to produce a Story-Level Spec at `.praxis/slices/{slice-id}/spec.md`. Confirm the spec with the user before continuing.
-2. Auto-advance through Stages 3–4, passing `.praxis/slices/{slice-id}/` as the skill argument.
+2. Auto-advance through Stages 3–6, passing `.praxis/slices/{slice-id}/` as the skill argument.
 
 ### Stage 3: Sketch Design (auto-advance)
 
@@ -66,14 +66,35 @@ When the skill completes:
 - **If `## Feedback` exists**: A spec issue needs resolution. Run `clarifying-intent` inline to resolve it with the user. Update the spec. Then re-invoke `rapid-implementing`.
 - **If all ACs are implemented**: Done (single story) or move to the next slice (multi-slice).
 
-For multi-slice: after completing a slice, move directly to the next slice's Stage 1. No between-slice verification.
+For multi-slice: after completing a slice's Stages 3–6, move directly to the next slice's Stage 1.
+
+### Stage 5: Code Review (auto-advance)
+
+Invoke the `code-reviewing` skill, passing the artifact directory as the argument.
+
+When the skill completes:
+
+- If `REVIEW_SKIPPED` appears in the output, proceed to completion (or next slice).
+- Otherwise, auto-advance to Stage 6. Do not pause for review confirmation.
+
+### Stage 6: Code Improvement (auto-advance)
+
+Invoke the `code-improving` skill, passing the artifact directory as the argument.
+
+When the skill completes:
+
+- **If `## Feedback` exists**: A spec or test issue needs resolution. Run `clarifying-intent` inline to resolve with the user. Update the spec. Then re-invoke `code-improving`.
+- **If `IMPROVEMENT_SKIPPED`**: Proceed to completion (or next slice).
+- **Otherwise**: Auto-advance. Do not pause for improvement confirmation.
 
 ### Completion
 
 When all slices are done (or the single story completes):
 
 1. **Verify commits.** Each AC should have been committed individually during implementation. Check `git status` — if any implementation changes were left uncommitted, stage and commit them.
-2. Read the implementation summary from `.praxis/implementation.md` (or the last slice's `implementation.md`) and report completion to the user.
+2. Read the implementation summary from `.praxis/implementation.md` (or the last slice's `implementation.md`).
+3. Read the improvement summary from `.praxis/improvement.md` (or the last slice's `improvement.md`) if it exists. Include any remaining low-severity items in the completion report so the user can decide on them.
+4. Report completion to the user.
 
 ## Rules
 
@@ -83,4 +104,4 @@ When all slices are done (or the single story completes):
 - All artifacts go to `.praxis/` (single-story) or `.praxis/slices/{slice-id}/` (multi-slice) as defined in CLAUDE.md.
 - **Artifact-mediated communication**: Skills read inputs from and write outputs to `.praxis/`. Do not relay artifact content through the orchestrator's context — let skills read the files directly.
 - **Feedback proxy**: When a forked skill encounters a spec issue requiring user input, it stops and returns the issue. The orchestrator resolves it by running `clarifying-intent` inline, then re-invokes the forked skill.
-- **Essential interaction only**: The only reasons to pause and ask the user are (1) spec confirmation after `clarifying-intent`, (2) blocking questions from `slicing-stories`, (3) spec issues from `sketching-design`, and (4) feedback from `rapid-implementing`. Everything else proceeds automatically.
+- **Essential interaction only**: The only reasons to pause and ask the user are (1) spec confirmation after `clarifying-intent`, (2) blocking questions from `slicing-stories`, (3) spec issues from `sketching-design`, (4) feedback from `rapid-implementing`, and (5) feedback from `code-improving` (spec/test conflicts). Everything else proceeds automatically.

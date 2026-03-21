@@ -16,9 +16,9 @@ Build products the way humans build good products: start from the highest abstra
 
 ## Workflow
 
-`/craft` pipeline: `clarifying-intent` → [`slicing-stories`] → `sketching-design` → `driving-tdd` → `verifying-and-adapting`
+`/craft` pipeline: `clarifying-intent` → [`slicing-stories`] → `sketching-design` → `driving-tdd` → `code-reviewing` → `code-improving` → `verifying-and-adapting`
 
-`/forge` pipeline: `clarifying-intent` → [`slicing-stories`] → `sketching-design` → `rapid-implementing`
+`/forge` pipeline: `clarifying-intent` → [`slicing-stories`] → `sketching-design` → `rapid-implementing` → `code-reviewing` → `code-improving`
 
 Fast paths: Trivial skips everything. Bug fix → clarify + TDD. Refactor → existing tests + refactor. `/forge` → full clarification, then auto-advance without writing new tests or human checkpoints. Every skill triages by size.
 
@@ -33,6 +33,8 @@ Skills write workflow artifacts to `.praxis/` in the working project:
 | Story-Level Spec | `spec.md`         | `clarifying-intent`      |
 | Design Sketch    | `sketch.md`       | `sketching-design`       |
 | TDD Session      | `tdd.md`          | `driving-tdd`            |
+| Code Review      | `review.md`       | `code-reviewing`         |
+| Improvement      | `improvement.md`  | `code-improving`         |
 | Verification     | `verification.md` | `verifying-and-adapting` |
 | Implementation   | `implementation.md` | `rapid-implementing`   |
 
